@@ -1,0 +1,19 @@
+{
+    "name":"feedPocket",
+    "version":"0.1",
+	"manifest_version":2,
+    "description":"Tighter Pocket/Feedly integration",
+    "content_scripts":[{
+        "matches":[
+            "*://www.feedly.com/*"
+        ],
+        "js":[
+            "lib/jquery-1.9.1.min.js",
+            "src/feedPocket.js"
+        ]
+    }],
+    "web_accessible_resources":[
+        "lib/pocket.png"
+    ]
+}
+

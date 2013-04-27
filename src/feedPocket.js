@@ -1,7 +1,8 @@
 
+
 (function($) {
 
-	var sendToPocket = function (toAdd) {
+	var sendToPocket = function (toAdd, item) {
 		$.ajax({
 			url: 'https://getpocket.com/v3/add',
 			type: 'POST',
@@ -13,6 +14,8 @@
 				'consumer_key': 'nan'
 			}),
 			success: function () {
+				item.addClass('pocketed');
+				item.attr('src', chrome.extension.getURL('lib/pocketed.png'));
 			},
 			error: function (jqXhr, textStatus, errorThrown) {
 				alert('error saving to pocket');
@@ -34,8 +37,11 @@
 	});
 
 	$(document).on('click', '.pocket', function () {
-		var url = $(this).closest('.u0Entry').attr('data-alternate-link');
-		sendToPocket(url);
+		var item = $(this);
+		if (!item.hasClass('pocketed')) {
+			var url = $(this).closest('.u0Entry').attr('data-alternate-link');
+			sendToPocket(url, $(this));
+		}
 	});
 
 })(jQuery);

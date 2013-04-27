@@ -1,4 +1,4 @@
 feedPocket
 ==========
 
-improved pocket integration with feedly
+improved pocket integration with feedly via Chrome extension.

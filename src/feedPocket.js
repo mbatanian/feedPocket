@@ -33,7 +33,7 @@
 		}
 	};
 
-	var scutKey = 66; // 'B'
+	var scutKey = 67; // 'C'
 
 	var imgUrl = chrome.extension.getURL('lib/pocket.png');
 	var pocketElement = '<img class="pocket" data-page-entry-action="pocketEntry" title="Post to Pocket" src="'+imgUrl+'"">';

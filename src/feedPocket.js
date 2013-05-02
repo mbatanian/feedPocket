@@ -15,17 +15,18 @@
 		 		'consumer_key': 'nan'
 			}),
 			success: function () {
-				condensedItem.addClass('pocketed');
-				condensedItem.attr('src', chrome.extension.getURL('lib/pocketed.png'));
+				if (condensedItem.length > 0) {
+					condensedItem.addClass('pocketed');
+					condensedItem.attr('src', chrome.extension.getURL('lib/pocketed.png'));
+				}
 			},
 			error: function (jqXhr, textStatus, errorThrown) {
-				alert('error saving to pocket');
+				alert('Error saving to Pocket');
 			}
 		});
 	};
 
 	var addPocketDOMItem = function (item) {
-		console.log('writing');
 		var ct = item.find('.condensedTools');
 		if (ct.find('.pocket').length === 0) {
 			ct.find('img[data-page-entry-action="facebookEntry"]').after(pocketElement);
@@ -45,12 +46,19 @@
 	$(document).on('keyup', function (e) {
 		// find the selected entry...
 		var item = $('.selectedEntry')
-		// first, make sure the dom item exists...
-		addPocketDOMItem(item);
-		// then, if it's the proper key, send to pocket
+
+		// if it's the proper key, send to pocket
 		if (e.which === scutKey) {
+			// first, make sure the dom item exists...
+			addPocketDOMItem(item);
+	
 			var pkitem = item.find('.pocket');
 			url = item.attr('data-alternate-link');
+			// hacky, but when the item is expanded, it doesn't have a data attr for the link...
+			// so dig and find it.
+			if (url.length <= 0) {
+				url = item.find('.u100Entry').attr('data-alternate-link');
+			}
 			sendToPocket(url, pkitem);
 		}
 	});
